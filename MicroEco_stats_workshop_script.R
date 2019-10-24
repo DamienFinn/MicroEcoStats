@@ -92,7 +92,7 @@ ordiplot(Spe.df.mds, display = "sites", type = "text")
 ordiellipse(Spe.df.mds, Wetlands, conf = 0.95, label = TRUE, lty = 2)
 
 #ANOSIM
-dist.Spe.df <- dist(Spe.df, method = "euclidean")
+dist.Spe.df <- dist(Spe.df, method = "bray")
 anosim.res <- anosim(dist.Spe.df, Wetlands, permutations = 1000, distance = "bray")
 summary(anosim.res)
 #Summary: Note dissimilarity ranks between and within classes:
@@ -118,7 +118,7 @@ legend(16, 10, pch=c(16), col = c("blue", "red", "green"), legend =c("QU", "SJ",
 
 #perMANOVA
 Spe.dm <- data.matrix(Spe.hel, rownames.force=NA)
-permanova.res <- adonis(Spe.dm ~ Wetlands, permutations = 1000, method = "bray")
+permanova.res <- adonis(Spe.dm ~ Wetlands, permutations = 1000, method = "euclidean")
 print(permanova.res$aov.tab)
 #Note that P value is lower (P = 0.001) but null hypothesis still rejected
 #Why is the P value lower here? perMANOVA is more sensitive to data
